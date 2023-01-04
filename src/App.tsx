@@ -1,9 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import {
+  ApolloClient,
+  ApolloProvider,
+  gql,
+  InMemoryCache,
+  useQuery,
+} from "@apollo/client";
 
+const client = new ApolloClient({
+  uri: "https://rickandmortyapi.graphcdn.app/",
+  cache: new InMemoryCache(),
+});
+
+const TEST_QUERY = gql`
+  query {
+    characters {
+      info {
+        count
+        next
+      }
+      results {
+        id
+        name
+      }
+    }
+  }
+`;
+type Character = {
+  id: number;
+  name: string;
+};
+
+type Info = {
+  count: number;
+  next: number;
+};
+
+type Characters = {
+  info: Info;
+  results: [Character];
+};
+
+type TEST_QUERY_TYPE = { characters: Characters };
 function App() {
-  return (
+  const { data } = useQuery<TEST_QUERY_TYPE>(TEST_QUERY);
+
+  const results = data?.characters.results;
+  return results == null ? (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -20,7 +65,22 @@ function App() {
         </a>
       </header>
     </div>
+  ) : (
+    <div className="App">
+      {results.map((character) => (
+        <div key={character.id}>
+          id: {character.id}
+          <br />
+          id: {character.name}
+          <br />
+        </div>
+      ))}
+    </div>
   );
 }
 
-export default App;
+export default () => (
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+);
