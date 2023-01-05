@@ -15,8 +15,8 @@ const client = new ApolloClient({
 });
 
 const TEST_QUERY = gql`
-  query {
-    characters {
+  query Get_Characters($page: Int) {
+    characters(page: $page) {
       info {
         count
         next
@@ -45,7 +45,11 @@ type Characters = {
 
 type TEST_QUERY_TYPE = { characters: Characters };
 function App() {
-  const { data } = useQuery<TEST_QUERY_TYPE>(TEST_QUERY);
+  const { data } = useQuery<TEST_QUERY_TYPE>(TEST_QUERY, {
+    variables: {
+      page: 2
+    }
+  });
 
   const results = data?.characters.results;
   return results == null ? (
@@ -71,7 +75,7 @@ function App() {
         <div key={character.id}>
           id: {character.id}
           <br />
-          id: {character.name}
+          name: {character.name}
           <br />
         </div>
       ))}
