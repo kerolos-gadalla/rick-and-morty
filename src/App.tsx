@@ -1,58 +1,30 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import {
-  ApolloClient,
-  ApolloProvider,
-  gql,
-  InMemoryCache,
-  useQuery,
-} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
+import { useCharactersQuery } from "./useCharactersQuery";
+import { graphQLClient } from "./graphQLClient";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-const client = new ApolloClient({
-  uri: "https://rickandmortyapi.graphcdn.app/",
-  cache: new InMemoryCache(),
-});
+function AppComponent() {
+  const page = 2;
+  const { characters, info, getNext } = useCharactersQuery();
 
-const TEST_QUERY = gql`
-  query Get_Characters($page: Int) {
-    characters(page: $page) {
-      info {
-        count
-        next
-      }
-      results {
-        id
-        name
-      }
-    }
-  }
-`;
-type Character = {
-  id: number;
-  name: string;
-};
+  const [hasMore, setHasMore] = useState(true);
+  useEffect(() => {
+    setHasMore((hasMore) => {
+      return info?.next > 0;
+    });
+  }, [setHasMore, info]);
 
-type Info = {
-  count: number;
-  next: number;
-};
-
-type Characters = {
-  info: Info;
-  results: [Character];
-};
-
-type TEST_QUERY_TYPE = { characters: Characters };
-function App() {
-  const { data } = useQuery<TEST_QUERY_TYPE>(TEST_QUERY, {
-    variables: {
-      page: 2
-    }
-  });
-
-  const results = data?.characters.results;
-  return results == null ? (
+  const getMore = useCallback(() => {
+    getNext(info?.next);
+  }, [getNext, info?.next]);
+  useEffect(() => {
+    getNext(0);
+  }, [getNext]);
+  // const results = data?.characters.results;
+  return characters == null ? (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -71,20 +43,30 @@ function App() {
     </div>
   ) : (
     <div className="App">
-      {results.map((character) => (
-        <div key={character.id}>
-          id: {character.id}
-          <br />
-          name: {character.name}
-          <br />
-        </div>
-      ))}
+      <pre>{JSON.stringify(info, null, 2)}</pre>
+      <InfiniteScroll
+        next={getMore}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        dataLength={info.count || 0}
+      >
+        {characters.map((character) => (
+          <div key={character.id}>
+            id: {character.id}
+            <br />
+            name: {character.name}
+            <br />
+          </div>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 }
 
-export default () => (
-  <ApolloProvider client={client}>
-    <App />
+const App = () => (
+  <ApolloProvider client={graphQLClient}>
+    <AppComponent />
   </ApolloProvider>
 );
+
+export default App;
