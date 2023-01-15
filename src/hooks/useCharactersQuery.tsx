@@ -13,24 +13,36 @@ const TEST_QUERY = gql`
       results {
         id
         name
+        image
+        species
+        gender
       }
     }
   }
 `;
-type Character = {
+
+export type Character = {
   id: number;
   name: string;
+  image: string;
+  status: string;
+  species: string;
+  gender: string;
+  type: string;
 };
+
 type Info = {
   count: number;
   next: number;
   prev: number;
   pages: number;
 };
+
 type Characters = {
   info: Info;
   results: Character[];
 };
+
 export function useCharactersQuery() {
   const [fetchData, { data, loading }] =
     useLazyQuery<TEST_QUERY_TYPE>(TEST_QUERY);

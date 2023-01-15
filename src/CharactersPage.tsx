@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useCharactersQuery } from "./useCharactersQuery";
+import { useCharactersQuery } from "./hooks/useCharactersQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Box, Container, Paper, styled } from "@mui/material";
+import { Box, Container } from "@mui/material";
+import { CharacterCard } from "./CharacterCard";
 
 export function CharactersPage({}) {
   const { characters, info, getNext } = useCharactersQuery();
 
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
     setHasMore((hasMore) => {
       return info?.next > 1;
@@ -19,13 +20,6 @@ export function CharactersPage({}) {
   useEffect(() => {
     getNext(1);
   }, [getNext]);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    lineHeight: "60px",
-  }));
 
   return (
     <Container maxWidth="sm">
@@ -46,19 +40,7 @@ export function CharactersPage({}) {
           }}
         >
           {characters.map((character) => (
-            <Item key={character.id} elevation={3}>
-              id: {character.id}
-              <br />
-              name: {character.name}
-              <br />
-            </Item>
-
-            // <Paper square elevation={3} key={character.id}>
-            //   id: {character.id}
-            //   <br />
-            //   name: {character.name}
-            //   <br />
-            // </Paper>
+            <CharacterCard character={character} />
           ))}
         </Box>
       </InfiniteScroll>
