@@ -8,12 +8,11 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { Button } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 const App = () => {
   return (
     <>
-      <Button variant="contained">Hello World</Button>
       <CharactersPage />
     </>
   );
@@ -27,4 +26,13 @@ function withAppollo<T>(Component: React.ComponentType<T>) {
   );
 }
 
-export default withAppollo(App);
+const darkTheme = createTheme({ palette: { mode: "dark" } });
+function withTheme<T>(Component: React.ComponentType<T>) {
+  return (props: T & React.Attributes) => (
+    <ThemeProvider theme={darkTheme}>
+      <Component {...props} />
+    </ThemeProvider>
+  );
+}
+
+export default withTheme(withAppollo(App));
