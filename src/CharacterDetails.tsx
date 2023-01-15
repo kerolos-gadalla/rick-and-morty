@@ -9,9 +9,12 @@ import {
   Link,
   Paper,
   styled,
+  Container,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
 import { getCharacterLink } from "./routes/routeHelpers";
+import { useParams } from "react-router-dom";
+import { CharacterDetail, useCharacterQuery } from "./hooks/useCharacterQuery";
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
@@ -20,13 +23,13 @@ const Item = styled(Card)(({ theme }) => ({
   lineHeight: "60px",
 }));
 
-export function CharacterCard({
-  character,
-}: {
-  character: Character;
-}): JSX.Element {
+export function CharacterDetails(): JSX.Element {
+  const { id } = useParams();
+  // const character = { name: id } as any;
+  const { data, loading } = useCharacterQuery(id);
+  const character = data?.character || ({} as CharacterDetail);
   return (
-    <Link key={character.id} href={getCharacterLink(character.id)}>
+    <Container maxWidth="sm">
       <Item key={character.id} elevation={3}>
         <CardHeader
           avatar={
@@ -40,13 +43,12 @@ export function CharacterCard({
         />
         <CardMedia
           component="img"
-          height="194"
           image={character.image}
           alt={`image of ${character.name}`}
         />
         <Chip label={character.species} />
         <Chip label={character.gender} variant="outlined" />
       </Item>
-    </Link>
+    </Container>
   );
 }
