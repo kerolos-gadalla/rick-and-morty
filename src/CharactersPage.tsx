@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useCharactersQuery } from "./useCharactersQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export function CharactersPage({ }) {
+export function CharactersPage({}) {
   const { characters, info, getNext } = useCharactersQuery();
 
   const [hasMore, setHasMore] = useState(true);
   useEffect(() => {
     setHasMore((hasMore) => {
-      return info?.next > 0;
+      return info?.next > 1;
     });
   }, [setHasMore, info]);
 
@@ -16,7 +16,7 @@ export function CharactersPage({ }) {
     getNext(info?.next);
   }, [getNext, info?.next]);
   useEffect(() => {
-    getNext(0);
+    getNext(1);
   }, [getNext]);
 
   return (
