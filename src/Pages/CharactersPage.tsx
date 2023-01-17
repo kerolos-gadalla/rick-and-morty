@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useCharactersQuery } from "./hooks/useCharactersQuery";
+import { useCharactersQuery } from "../hooks/useCharactersQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Box, Container } from "@mui/material";
-import { CharacterCard } from "./CharacterCard";
+import { CharacterCard } from "../Components/CharacterCard";
 
 export function CharactersPage({}) {
   const { characters, info, getNext } = useCharactersQuery();

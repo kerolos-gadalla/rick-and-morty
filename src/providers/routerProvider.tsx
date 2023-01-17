@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CharacterDetails } from "../CharacterDetails";
-import { CharactersPage } from "../CharactersPage";
+import { CharacterDetails } from "../Pages/CharacterDetails";
+import { CharactersPage } from "../Pages/CharactersPage";
 
 export const rootRouter = createBrowserRouter([
   {

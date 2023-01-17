@@ -2,7 +2,6 @@ import React, { ComponentClass } from "react";
 import "./App.css";
 import { ApolloProvider } from "@apollo/client";
 import { graphQLClient } from "./graphQLClient";
-import { CharactersPage } from "./CharactersPage";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -11,11 +10,13 @@ import "@fontsource/roboto/700.css";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import { rootRouter } from "./providers/routerProvider";
+import PrimarySearchAppBar from "./hooks/AppBar";
 
 const App = () => {
   return (
     <>
       {/* <CharactersPage /> */}
+      <PrimarySearchAppBar />
       <RouterProvider router={rootRouter} />
     </>
   );

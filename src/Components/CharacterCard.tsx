@@ -1,5 +1,5 @@
 import React from "react";
-import { Character } from "./hooks/useCharactersQuery";
+import { Character } from "../hooks/useCharactersQuery";
 import {
   Avatar,
   Card,
@@ -11,7 +11,7 @@ import {
   styled,
 } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { getCharacterLink } from "./routes/routeHelpers";
+import { getCharacterLink } from "../routes/routeHelpers";
 
 const Item = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
