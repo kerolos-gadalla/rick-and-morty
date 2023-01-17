@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rick-and-morty/static/css/main.886fc8f1.css",
-    "main.js": "/rick-and-morty/static/js/main.88657aec.js",
+    "main.js": "/rick-and-morty/static/js/main.b460185b.js",
     "static/js/787.745e99b1.chunk.js": "/rick-and-morty/static/js/787.745e99b1.chunk.js",
     "static/media/roboto-all-500-normal.woff": "/rick-and-morty/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
     "static/media/roboto-all-700-normal.woff": "/rick-and-morty/static/media/roboto-all-700-normal.a457fde362a540fcadff.woff",
@@ -37,11 +37,11 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/rick-and-morty/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/rick-and-morty/index.html",
     "main.886fc8f1.css.map": "/rick-and-morty/static/css/main.886fc8f1.css.map",
-    "main.88657aec.js.map": "/rick-and-morty/static/js/main.88657aec.js.map",
+    "main.b460185b.js.map": "/rick-and-morty/static/js/main.b460185b.js.map",
     "787.745e99b1.chunk.js.map": "/rick-and-morty/static/js/787.745e99b1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.886fc8f1.css",
-    "static/js/main.88657aec.js"
+    "static/js/main.b460185b.js"
   ]
 }
