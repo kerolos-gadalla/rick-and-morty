@@ -49,8 +49,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## REFERENCES
 
-https://create-react-app.dev/docs/adding-typescript/
-https://www.apollographql.com/docs/react/
-https://mui.com/material-ui/getting-started/installation/
-https://reactrouter.com/en/main/start/tutorial
-https://www.freecodecamp.org/news/publish-your-website-netlify-github/
+- https://create-react-app.dev/docs/adding-typescript/
+- https://www.apollographql.com/docs/react/
+- https://mui.com/material-ui/getting-started/installation/
+- https://reactrouter.com/en/main/start/tutorial
+- https://github.com/gitname/react-gh-pages
+- https://www.freecodecamp.org/news/publish-your-website-netlify-github/
+
