@@ -1,9 +1,10 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchContext } from "../providers/useCreateSearchContext";
 
 const TEST_QUERY = gql`
-  query Get_Characters($page: Int) {
-    characters(page: $page) {
+  query Get_Characters($page: Int, $filter: FilterCharacter) {
+    characters(page: $page, filter: $filter) {
       info {
         count
         next
@@ -20,6 +21,14 @@ const TEST_QUERY = gql`
     }
   }
 `;
+
+export type FilterCharacter = {
+  name?: string;
+  status?: string;
+  species?: string;
+  type?: string;
+  gender?: string;
+};
 
 export type Character = {
   id: number;
@@ -50,21 +59,33 @@ export function useCharactersQuery() {
   const results = useMemo(() => data?.characters.results || [], [data]);
   const info = useMemo(() => data?.characters.info || ({} as Info), [data]);
 
+  const { searchQuery } = useSearchContext();
+
+  useEffect(() => {
+    setCharacters((_prev) => {
+      return [];
+    });
+  }, [searchQuery]);
+
   useEffect(() => {
     setCharacters((prev) => {
       return [...prev, ...results];
     });
   }, [results]);
+
   const getNext = useCallback(
     (page: number = 0) => {
       console.log("getting data");
       return fetchData({
         variables: {
           page,
+          filter: {
+            name: searchQuery,
+          },
         },
       });
     },
-    [fetchData]
+    [fetchData, searchQuery]
   );
 
   return {

@@ -6,8 +6,6 @@ import {
   CardHeader,
   CardMedia,
   Chip,
-  Link,
-  Paper,
   styled,
   Container,
 } from "@mui/material";

@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useCharactersQuery } from "../hooks/useCharactersQuery";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Box, Container } from "@mui/material";
-import { CharacterCard } from "../Components/CharacterCard";
+import { Box } from "@mui/material";
+import { CharacterCard } from "../components/CharacterCard";
+import { useSearchContext } from "../providers/useCreateSearchContext";
 
 export function CharactersPage({}) {
   const { characters, info, getNext } = useCharactersQuery();
@@ -17,12 +18,13 @@ export function CharactersPage({}) {
   const getMore = useCallback(() => {
     getNext(info?.next);
   }, [getNext, info?.next]);
+  
   useEffect(() => {
     getNext(1);
   }, [getNext]);
 
   return (
-    <Container maxWidth="sm">
+    <>
       <pre>{JSON.stringify(info, null, 2)}</pre>
       <InfiniteScroll
         next={getMore}
@@ -44,6 +46,6 @@ export function CharactersPage({}) {
           ))}
         </Box>
       </InfiniteScroll>
-    </Container>
+    </>
   );
 }

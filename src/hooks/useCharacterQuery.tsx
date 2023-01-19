@@ -1,5 +1,5 @@
-import { gql, useLazyQuery, useQuery } from "@apollo/client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
 
 const GET_CHARACTER_QUERY = gql`
   query GET_CHARACTER($id: ID!) {

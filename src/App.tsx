@@ -10,13 +10,11 @@ import "@fontsource/roboto/700.css";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
 import { rootRouter } from "./providers/routerProvider";
-import PrimarySearchAppBar from "./hooks/AppBar";
 
 const App = () => {
   return (
     <>
       {/* <CharactersPage /> */}
-      <PrimarySearchAppBar />
       <RouterProvider router={rootRouter} />
     </>
   );
