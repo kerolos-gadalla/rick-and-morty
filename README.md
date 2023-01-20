@@ -39,11 +39,18 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Progress
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- initially i started the app and started testing my quey 
+- then I found a problem with inifinit scrolling and found a solution for it
+- I installed mui and started using it, initially started with an Avatar, but switched to a CardMedia
+- I started creating routes for details
+- I hosted the app on gh-pages, tried netlify - but wll continue later after the code is cleaned up a bit
+- Found the search feature and implemented it for nameing 
+- trying to fix other filters with an advanced switch (I don't know if I should put the name in the advanced search or no)
+- I found that I need more of a global context management for keeping search results among pages, so I am trying out Redux
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
 
 
 
@@ -55,4 +62,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - https://reactrouter.com/en/main/start/tutorial
 - https://github.com/gitname/react-gh-pages
 - https://www.freecodecamp.org/news/publish-your-website-netlify-github/
+- https://redux-toolkit.js.org/usage/usage-with-typescript
+
+
 
