@@ -63,7 +63,7 @@ function SearchTile() {
     HTMLInputElement | HTMLTextAreaElement
   > = React.useCallback(
     (event) => {
-      setSearchQuery(event.target.value);
+      setSearchQuery?.(event.target.value);
     },
     [setSearchQuery]
   );
@@ -77,7 +77,7 @@ function SearchTile() {
         inputProps={{
           "aria-label": "search",
         }}
-        value={searchQuery}
+        value={searchQuery || ''}
         onChange={onChange}
       />
     </Search>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import "./App.css";
 import { ApolloProvider } from "@apollo/client";
 import { graphQLClient } from "./graphQLClient";
@@ -13,20 +13,52 @@ import { rootRouterConfig } from "./providers/routerProvider";
 import PrimarySearchAppBar from "./hooks/AppBar";
 
 import {
-  useCreateSearchContext,
   SearchContext,
 } from "./providers/useCreateSearchContext";
 import { useDepartmentContext, withDepartment } from "./withDepartment";
 import { withRedux } from "./redux/withRedux";
+import { useAppDispatch, useAppSelector } from "./redux/AppDispatch";
+import { rootActions } from "./redux/rootReducer";
 
-const CharacterSearchContext = ({
+const CharacterSearchContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const value = useCreateSearchContext();
+  const department = useDepartmentContext();
+
+  const charactersState = useAppSelector((state) => {
+    if (department === "characters") return state.characters;
+    return null;
+  });
+  const name = charactersState?.filter.name;
+  const dispatch = useAppDispatch();
+
+  const { setName } = useMemo(() => {
+    if (department === "characters") {
+      return {
+        setName: (newName: string | Function) => {
+          if (typeof newName === "function") {
+            newName = newName(name) as string;
+          }
+          return dispatch(
+            rootActions.characters.setFilterValue({
+              key: "name",
+              value: newName,
+            })
+          );
+        },
+      };
+    }
+    return {};
+  }, [department]);
+
   return (
-    <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
+    <SearchContext.Provider
+      value={{ searchQuery: name, setSearchQuery: setName }}
+    >
+      {children}
+    </SearchContext.Provider>
   );
 };
 
@@ -34,7 +66,7 @@ const App = () => {
   return (
     <>
       {/* <CharactersPage /> */}
-      <CharacterSearchContext>
+      <CharacterSearchContextProvider>
         <Container maxWidth="sm">
           <PrimarySearchAppBar />
           <h1>{useDepartmentContext()}</h1>
@@ -44,7 +76,7 @@ const App = () => {
             ))}
           </Routes>
         </Container>
-      </CharacterSearchContext>
+      </CharacterSearchContextProvider>
     </>
   );
 };
