@@ -63,6 +63,8 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - https://github.com/gitname/react-gh-pages
 - https://www.freecodecamp.org/news/publish-your-website-netlify-github/
 - https://redux-toolkit.js.org/usage/usage-with-typescript
+- https://redux-toolkit.js.org/tutorials/typescript
+- https://www.freecodecamp.org/news/learn-redux-toolkit-the-recommended-way-to-use-redux/
 
 
 
