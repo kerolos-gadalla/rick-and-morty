@@ -65,6 +65,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - https://redux-toolkit.js.org/usage/usage-with-typescript
 - https://redux-toolkit.js.org/tutorials/typescript
 - https://www.freecodecamp.org/news/learn-redux-toolkit-the-recommended-way-to-use-redux/
-
-
+- https://blog.logrocket.com/using-typescript-with-redux-toolkit/
+- https://bluelight.co/blog/redux-toolkit-with-typescript
+- https://redux-toolkit.js.org/usage/usage-with-typescript
 

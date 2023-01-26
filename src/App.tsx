@@ -8,11 +8,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Container, createTheme, ThemeProvider } from "@mui/material";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { rootRouterConfig } from "./providers/routerProvider";
 import PrimarySearchAppBar from "./hooks/AppBar";
 
@@ -21,6 +17,7 @@ import {
   SearchContext,
 } from "./providers/useCreateSearchContext";
 import { useDepartmentContext, withDepartment } from "./withDepartment";
+import { withRedux } from "./redux/withRedux";
 
 const CharacterSearchContext = ({
   children,
@@ -34,7 +31,6 @@ const CharacterSearchContext = ({
 };
 
 const App = () => {
-
   return (
     <>
       {/* <CharactersPage /> */}
@@ -80,4 +76,6 @@ function withRootRouter<T>(Component: React.ComponentType<T>) {
   };
 }
 
-export default withRootRouter(withDepartment(withTheme(withAppollo(App))));
+export default withRedux(
+  withRootRouter(withDepartment(withTheme(withAppollo(App))))
+);
