@@ -1,44 +1,29 @@
 import { Container } from "@mui/material";
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PrimarySearchAppBar from "../hooks/AppBar";
+import { Navigate, RouteObject } from "react-router-dom";
 import { CharacterDetails } from "../Pages/CharacterDetails";
 import { CharactersPage } from "../Pages/CharactersPage";
-import { getRoute } from "../routes/routeHelpers";
-import { useCreateSearchContext, SearchContext } from "./useCreateSearchContext";
+import { getCharacterLink, getDimensionsLink, getRoute } from "../routes/routeHelpers";
 
-const CharacterSearchContext = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const value = useCreateSearchContext();
-  return (
-    <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
-  );
-};
-
-export const rootRouter = createBrowserRouter([
+export const rootRouterConfig: RouteObject[] = [
   {
     path: getRoute("/"),
-    element: (
-      <>
-        <CharacterSearchContext>
-          <Container maxWidth="sm">
-            <PrimarySearchAppBar />
-            <CharactersPage />
-          </Container>
-        </CharacterSearchContext>
-      </>
-    ),
+    element: <Navigate to={getCharacterLink()} replace />,
   },
   {
-    path: getRoute("/characters"),
+    path: getCharacterLink(),
     element: <CharactersPage />,
   },
-
   {
-    path: getRoute("/characters/:id"),
+    path: getCharacterLink(":id"),
     element: <CharacterDetails />,
   },
-]);
+  {
+    path: getDimensionsLink(),
+    element: <h1>DIMENSIONS LIST</h1>,
+  },
+  {
+    path: getDimensionsLink("id"),
+    element: <h1>DIMENSION DETAILS</h1>,
+  },
+];

@@ -10,7 +10,7 @@ export function CharactersPage({}) {
 
   const [hasMore, setHasMore] = useState(false);
   useEffect(() => {
-    setHasMore((hasMore) => {
+    setHasMore((_hasMore) => {
       return info?.next > 1;
     });
   }, [setHasMore, info]);
@@ -25,7 +25,7 @@ export function CharactersPage({}) {
 
   return (
     <>
-      <pre>{JSON.stringify(info, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(info, null, 2)}</pre> */}
       <InfiniteScroll
         next={getMore}
         hasMore={hasMore}
@@ -42,7 +42,7 @@ export function CharactersPage({}) {
           }}
         >
           {characters.map((character) => (
-            <CharacterCard character={character} />
+            <CharacterCard key={character.id} character={character} />
           ))}
         </Box>
       </InfiniteScroll>
